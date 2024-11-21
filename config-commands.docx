@@ -1,0 +1,50 @@
+1.Install microk8s and do setup
+    Install microk8s and setup
+sudo apt update -y 
+sudo snap install microk8s --classic --channel=1.31
+sudo usermod -a -G microk8s $USER
+
+mkdir -p ~/.kube
+chmod 0700 ~/.kube
+newgrp microk8s
+
+
+microk8s status --wait-ready
+sudo snap install kubectl  --classic
+microk8s kubectl get services
+
+alias kubectl='microk8s kubectl'
+
+Git clone repo 
+https://github.com/reddy-eswara/k8s-class.git
+
+  ls
+  cd k8s-class-ingress-config/
+cd config_and_secrets/
+  Deploy all yml files :  kubectl apply -f .
+
+  Check service - kubectl get svc
+
+  Check config and secrets
+kubectl get secret
+kubectl get configmap
+
+  Describe config and secret
+		kubectl describe cm mongodb-configmap
+
+  kubectl describe secret mongodb-secret
+
+  
+Check the pods running
+ kubectl get pods
+
+  Connect to pods using kubectl exec to get the environmental variables
+
+kubectl exec -it mongo-express-64f8d5759f-t6rrl -- env
+
+  Access the application from outer world (browser)
+http://<public_IP>:31000
+it prompt for username and password 
+
+
+
